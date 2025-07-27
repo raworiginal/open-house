@@ -40,5 +40,19 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/:listingId", async (req, res) => {
+  try {
+    const populatedListings = await Listing.findById(
+      req.params.listingId
+    ).populate("owner");
+
+    res.render("listings/show.ejs", {
+      listing: populatedListings,
+    });
+  } catch (error) {
+    console.error(error);
+    res.redirect("/");
+  }
+});
 /* ===================== Exports ===================== */
 module.exports = router;
