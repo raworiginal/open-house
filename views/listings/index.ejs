@@ -3,6 +3,13 @@
 
 <main>
   <h1>Here's All the Listings</h1>
+  <ul>
+    <% listings.forEach((listing) =>{ %>
+      <li>
+        A listing in <%= listing.city %> owned by <%= listing.owner.username %>
+      </li>
+      <% }) %>
+  </ul>
   <a role="button" href="/listings/new">Add New Listing</a>
 </main>
 

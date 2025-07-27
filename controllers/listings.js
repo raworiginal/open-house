@@ -27,13 +27,13 @@ router.post("/", async (req, res) => {
   }
 });
 /* ===================== READ ===================== */
-
 // Read All
 router.get("/", async (req, res) => {
   try {
-    const allListings = await Listing.find({});
-    console.log(allListings);
-    res.render("listings/index.ejs");
+    const populatedListings = await Listing.find({}).populate("owner");
+    res.render("listings/index.ejs", {
+      listings: populatedListings,
+    });
   } catch (error) {
     console.error(error);
     res.redirect("/");
