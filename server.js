@@ -1,3 +1,4 @@
+/* =================== Dependencies =================== */
 const dotenv = require("dotenv");
 dotenv.config();
 const express = require("express");
@@ -16,10 +17,12 @@ mongoose.connect(process.env.MONGODB_URI);
 const isSignedIn = require("./middleware/is-signed-in.js");
 const passUserToView = require("./middleware/pass-user-to-view.js");
 
+/*  =================== DB Connections =================== */
+
 mongoose.connection.on("connected", () => {
   console.log(`Connected to MongoDB ${mongoose.connection.name}.`);
 });
-
+/* =================== Middleware =================== */
 // Middleware to parse URL-encoded data from forms
 app.use(express.urlencoded({ extended: false }));
 // Middleware for using HTTP verbs such as PUT or DELETE
@@ -47,6 +50,7 @@ app.get("/", async (req, res) => {
 app.use("/auth", authController);
 app.use("/listings", listingsController);
 
+/* =================== Servers =================== */
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`);
 });
