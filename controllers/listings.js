@@ -15,6 +15,17 @@ router.get("/new", (req, res) => {
     res.redirect("/");
   }
 });
+
+router.post("/", async (req, res) => {
+  try {
+    req.body.owner = req.session.user._id;
+    await Listing.create(req.body);
+    res.redirect("/listings");
+  } catch (error) {
+    console.error(error);
+    res.redirect("/");
+  }
+});
 /* ===================== READ ===================== */
 
 // Read All
